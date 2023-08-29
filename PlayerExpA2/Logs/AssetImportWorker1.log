@@ -486,3 +486,7 @@ Received Import Request.
   path: Assets/GreyBox/Greybox.mat
   artifactKey: Guid(5d72bb0bc9c847c4989a44f8f7f236d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/GreyBox/Greybox.mat using Guid(5d72bb0bc9c847c4989a44f8f7f236d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '761da8b7769938d330b04e003545e525') in 0.019664 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

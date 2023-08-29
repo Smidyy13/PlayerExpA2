@@ -618,3 +618,7 @@ Received Import Request.
   path: Assets/GreyBox/SmallRoom.prefab
   artifactKey: Guid(eaa15ba278a709c4a831bac5788736ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/GreyBox/SmallRoom.prefab using Guid(eaa15ba278a709c4a831bac5788736ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '687284769f83266deb3e5d7a903867a8') in 0.010896 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
