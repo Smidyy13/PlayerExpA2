@@ -7,6 +7,7 @@ public class TerminalData : MonoBehaviour
     public List<string> batteryCells = new List<string>();
 
     [SerializeField] int batteryCellCount;
+    public int numberOfTerminals;
 
     private void Start()
     {

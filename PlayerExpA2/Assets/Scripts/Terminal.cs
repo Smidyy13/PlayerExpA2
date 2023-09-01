@@ -35,7 +35,8 @@ public class Terminal : MonoBehaviour
 
     public void SubmitText()
     {
-        textBoxCol1.text += "\n> " + inputField.text;
+        MoveUpLine();
+        textBoxCol1.text += "> " + inputField.text;
         textBoxCol2.text += "\n";
 
         SearchForFunction(inputField.text);
@@ -64,9 +65,6 @@ public class Terminal : MonoBehaviour
                 if (inputIndcFunc[1] == "celldir")
                 {
                     CellDirectory();
-
-                    //textBoxCol1.text += "\ncell 1   --  terminal 1\ncell 2   --  terminal 1";
-                    //textBoxCol2.text += "\ncell 2   --  \ncell 3   --  terminal 1";
                 }
                 else if (inputIndcFunc[1] == "powerdir")
                 {
@@ -82,15 +80,13 @@ public class Terminal : MonoBehaviour
         }
         else if (inputIndcFunc[0] == "clr")
         {
-            MoveUpLine();
-            textBoxCol1.text += "this is not yet implemented";
+            ClearFunction(inputIndcFunc);
         }
         else if (inputIndcFunc[0] == "link")
         {
-            MoveUpLine();
-            textBoxCol1.text += "this is not yet implemented";
+            LinkFunction(inputIndcFunc);
         }
-        else 
+        else
         {
             MoveUpLine();
             textBoxCol1.text += "The term" + " '" + inputFunction + "' " + "is not recognized try typing help for avaliable functions";
@@ -104,8 +100,70 @@ public class Terminal : MonoBehaviour
         for (int i = 0; i < numPerCol; i ++)
         {
             MoveUpLine();
-            textBoxCol1.text += "cell " + i;
-            textBoxCol2.text += "cell " + (i + numPerCol);
+            textBoxCol1.text += "cell " + i + "   --   " + terminalData.batteryCells[i];
+            textBoxCol2.text += "cell " + (i + numPerCol) + "   --   " + terminalData.batteryCells[i + numPerCol];
+        }
+    }
+       
+    void LinkFunction(string[] inputIndcFunc)
+    {
+        if (inputIndcFunc[1].Substring(0, 3) == "trm")
+        {
+            int terminalNumber = int.Parse(inputIndcFunc[1].Substring(inputIndcFunc[1].Length - 1, 1));
+            int cellNumber = int.Parse(inputIndcFunc[2].Substring(4, 1));
+
+            if (inputIndcFunc[2].Substring(0, 1) == "[" && inputIndcFunc[2].Substring(5, 1) == "]" && inputIndcFunc[2].Substring(1, 3) == "cll")
+            {
+                if (terminalNumber <= terminalData.numberOfTerminals)
+                {
+                    if (cellNumber <= terminalData.batteryCells.Count)
+                    {
+                        terminalData.batteryCells[cellNumber] = "Terminal " + terminalNumber;
+                    }
+                    else
+                    {
+                        MoveUpLine();
+                        textBoxCol1.text += "Cell " + cellNumber + " does not exist";
+                    }
+                }
+                else
+                {
+                    MoveUpLine();
+                    textBoxCol1.text += "Terminal " + terminalNumber + " does not exist";
+                }
+            }
+            else
+            {
+                MoveUpLine();
+                textBoxCol1.text += "Incorrectly refferencing a cell";
+            }
+        }
+        else
+        {
+            MoveUpLine();
+            textBoxCol1.text += inputIndcFunc[1] + " cannot be connected to a battery cell";
+        }
+    }
+        
+    void ClearFunction(string[] inputIndcFunc)
+    {
+        if (inputIndcFunc[1].Substring(0, 1) == "[" && inputIndcFunc[1].Substring(5, 1) == "]" && inputIndcFunc[1].Substring(1, 3) == "cll")
+        {
+            int cellNumber = int.Parse(inputIndcFunc[1].Substring(4, 1));
+            if (cellNumber <= terminalData.batteryCells.Count)
+            {
+                terminalData.batteryCells[cellNumber] = "empty";
+            }
+            else
+            {
+                MoveUpLine();
+                textBoxCol1.text += "Cell " + cellNumber + " does not exist";
+            }
+        }
+        else
+        {
+            MoveUpLine();
+            textBoxCol1.text += "Incorrectly refferencing a cell";
         }
     }
 
