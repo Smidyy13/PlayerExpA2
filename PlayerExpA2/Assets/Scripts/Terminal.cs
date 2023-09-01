@@ -16,13 +16,16 @@ public class Terminal : MonoBehaviour
         inputField.caretWidth = 20;
 
         inputField.ActivateInputField();
-
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
-        inputField.OnControlClick();
+        inputField.ActivateInputField();
+
+        if (Input.GetKeyUp(KeyCode.Return)) 
+        { 
+            SubmitText(); 
+        }
     }
 
 
@@ -34,8 +37,6 @@ public class Terminal : MonoBehaviour
         SearchForFunction(inputField.text);
 
         inputField.text = null;
-
-        inputField.ActivateInputField();
     }
 
     void SearchForFunction(string inputFunction)
