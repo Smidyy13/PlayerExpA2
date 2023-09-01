@@ -11,8 +11,12 @@ public class Terminal : MonoBehaviour
 
     [SerializeField] string terminalName;
 
+    TerminalData terminalData;
+
     private void Start()
     {
+        terminalData = GetComponent<TerminalData>();
+
         inputField.caretWidth = 20;
 
         inputField.ActivateInputField();
@@ -52,14 +56,17 @@ public class Terminal : MonoBehaviour
         {
             if (!(inputIndcFunc.Length > 1))
             {
-                textBoxCol1.text += "\ntype in a directory name to list";
+                MoveUpLine();
+                textBoxCol1.text += "type in a directory name to list";
             }
             else
             {
                 if (inputIndcFunc[1] == "celldir")
                 {
-                    textBoxCol1.text += "\ncell 1   --  terminal 1\ncell 2   --  terminal 1";
-                    textBoxCol2.text += "\ncell 2   --  \ncell 3   --  terminal 1";
+                    CellDirectory();
+
+                    //textBoxCol1.text += "\ncell 1   --  terminal 1\ncell 2   --  terminal 1";
+                    //textBoxCol2.text += "\ncell 2   --  \ncell 3   --  terminal 1";
                 }
                 else if (inputIndcFunc[1] == "powerdir")
                 {
@@ -68,21 +75,43 @@ public class Terminal : MonoBehaviour
                 }
                 else
                 {
-                    textBoxCol1.text += "\nthis directory does not exist";
+                    MoveUpLine();
+                    textBoxCol1.text += "this directory does not exist";
                 }
             }
         }
         else if (inputIndcFunc[0] == "clr")
         {
-            textBoxCol1.text += "\nthis is not yet implemented";
+            MoveUpLine();
+            textBoxCol1.text += "this is not yet implemented";
         }
         else if (inputIndcFunc[0] == "link")
         {
-            textBoxCol1.text += "\nthis is not yet implemented";
+            MoveUpLine();
+            textBoxCol1.text += "this is not yet implemented";
         }
         else 
         {
-            textBoxCol1.text += "\nThe term" + " '" + inputFunction + "' " + "is not recognized try typing help for avaliable functions";
+            MoveUpLine();
+            textBoxCol1.text += "The term" + " '" + inputFunction + "' " + "is not recognized try typing help for avaliable functions";
         }
+    }
+
+    void CellDirectory()
+    {
+        int numPerCol = terminalData.batteryCells.Count / 2;   
+
+        for (int i = 0; i < numPerCol; i ++)
+        {
+            MoveUpLine();
+            textBoxCol1.text += "cell " + i;
+            textBoxCol2.text += "cell " + (i + numPerCol);
+        }
+    }
+
+    void MoveUpLine()
+    {
+        textBoxCol1.text += "\n";
+        textBoxCol2.text += "\n";
     }
 }
