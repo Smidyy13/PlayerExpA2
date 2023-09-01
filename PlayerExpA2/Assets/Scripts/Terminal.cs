@@ -49,19 +49,26 @@ public class Terminal : MonoBehaviour
         }
         else if (inputIndcFunc[0] == "ls")
         {
-            if (inputIndcFunc[1] == "celldir")
+            if (!(inputIndcFunc.Length > 1))
             {
-                textBoxCol1.text += "\ncell 1   --  terminal 1\ncell 2   --  terminal 1";
-                textBoxCol2.text += "\ncell 2   --  \ncell 3   --  terminal 1";
-            }
-            else if (inputIndcFunc[1] == "powerdir")
-            {
-                textBoxCol1.text += "\ncell 1   --  5kW-h\ncell 2   --  0kW-h\ntotal power draw: 10kW-h";
-                textBoxCol2.text += "\ncell 2   --  0kW-h\ncell 3   --  5kW-h";
+                textBoxCol1.text += "\ntype in a directory name to list";
             }
             else
             {
-                textBoxCol1.text += "\nthis directory does not exist";
+                if (inputIndcFunc[1] == "celldir")
+                {
+                    textBoxCol1.text += "\ncell 1   --  terminal 1\ncell 2   --  terminal 1";
+                    textBoxCol2.text += "\ncell 2   --  \ncell 3   --  terminal 1";
+                }
+                else if (inputIndcFunc[1] == "powerdir")
+                {
+                    textBoxCol1.text += "\ncell 1   --  5kW-h\ncell 2   --  0kW-h\ntotal power draw: 10kW-h";
+                    textBoxCol2.text += "\ncell 2   --  0kW-h\ncell 3   --  5kW-h";
+                }
+                else
+                {
+                    textBoxCol1.text += "\nthis directory does not exist";
+                }
             }
         }
         else if (inputIndcFunc[0] == "clr")
@@ -74,7 +81,7 @@ public class Terminal : MonoBehaviour
         }
         else 
         {
-            textBoxCol1.text += "\nThe term" + "'" + inputFunction + "'" + "is not recognized try typing help for avaliable functions";
+            textBoxCol1.text += "\nThe term" + " '" + inputFunction + "' " + "is not recognized try typing help for avaliable functions";
         }
     }
 }
