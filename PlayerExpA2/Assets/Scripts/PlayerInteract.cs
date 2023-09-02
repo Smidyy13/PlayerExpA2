@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerInteract : MonoBehaviour
 {
     List<GameObject> objectsInRange = new List<GameObject>();
+
+    [SerializeField] TMP_Text interactText;
 
     void Update()
     {
@@ -14,6 +17,15 @@ public class PlayerInteract : MonoBehaviour
             {
                 objectsInRange[0].gameObject.GetComponent<IInteractable>().Interact();
             }
+        }
+
+        if (objectsInRange.Count > 0)
+        {
+            interactText.gameObject.SetActive(true);
+        }
+        else
+        {
+            interactText.gameObject.SetActive(false);
         }
     }
 
