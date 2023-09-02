@@ -99,7 +99,7 @@ public class TerminalInputControl : MonoBehaviour
         }
         else if (inputIndcFunc[0] == "adjst")
         {
-
+            terminalFunctions.AdjustFunction(inputIndcFunc, terminalData, textBoxCol1, textBoxCol2);
         }
         else
         {
@@ -152,8 +152,8 @@ public class TerminalInputControl : MonoBehaviour
             for (int i = 0; i < numPerCol; i++)
             {
                 MoveUpLine();
-                textBoxCol1.text += terminalData.batteryCellsGiven[i] + "   --   " + terminalData.cellPower[i] + "kW-h";
-                textBoxCol2.text += terminalData.batteryCellsGiven[i + numPerCol] + "   --   " + terminalData.cellPower[i + numPerCol] + "kW-h";
+                textBoxCol1.text += terminalData.batteryCellsGiven[i] + "   --   " + terminalData.cellPower[i] + " kW-h";
+                textBoxCol2.text += terminalData.batteryCellsGiven[i + numPerCol] + "   --   " + terminalData.cellPower[i + numPerCol] + " kW-h";
             }
         }
         else
@@ -161,7 +161,7 @@ public class TerminalInputControl : MonoBehaviour
             for (int i = 0; i < terminalData.batteryCellsGiven.Count; i++)
             {
                 MoveUpLine();
-                textBoxCol1.text += terminalData.batteryCellsGiven[i] + "   --   " + terminalData.cellPower[i] + "kW-h";
+                textBoxCol1.text += terminalData.batteryCellsGiven[i] + "   --   " + terminalData.cellPower[i] + " kW-h";
             }
         }
 
@@ -170,7 +170,7 @@ public class TerminalInputControl : MonoBehaviour
             totalPowerDraw += terminalData.cellPower[i];
         }
 
-        textBoxCol1.text += "\n.......................................\ntotal terminal power draw: " + totalPowerDraw;
+        textBoxCol1.text += "\n.......................................\ntotal terminal power draw: " + totalPowerDraw + " kW-h";
 
         textBoxCol2.text += "\n";
     }

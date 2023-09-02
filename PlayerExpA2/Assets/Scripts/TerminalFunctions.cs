@@ -89,31 +89,37 @@ public class TerminalFunctions
     }
 
     public void AdjustFunction(string[] inputIndcFunc, TerminalData terminalData, TMP_Text textBoxCol1, TMP_Text textBoxCol2)
-    {
-        if (1 > 2)
+    { 
+        int powerChange;
+
+        if (int.TryParse(inputIndcFunc[1], out powerChange))
         {
-            int terminalNumber = int.Parse(inputIndcFunc[1].Substring(inputIndcFunc[1].Length - 1, 1));
             int cellNumber = int.Parse(inputIndcFunc[2].Substring(4, 1));
+
+            Debug.Log("This is the cell number: " + cellNumber);
+            Debug.Log("This is the power change: " + powerChange);
 
             if (inputIndcFunc[2].Substring(0, 1) == "[" && inputIndcFunc[2].Substring(5, 1) == "]" && inputIndcFunc[2].Substring(1, 3) == "cll")
             {
-                if (terminalNumber <= terminalData.terminals.Count)
+                for (int i = 0; i < terminalData.batteryCellsGiven.Count; i++)
                 {
-                    if (cellNumber <= terminalData.batteryCells.Count)
+                    if (int.Parse(terminalData.batteryCellsGiven[i].Substring(terminalData.batteryCellsGiven[i].Length - 1, 1)) == cellNumber)
                     {
-                        terminalData.batteryCells[cellNumber] = "te " + terminalNumber;
-                        terminalData.terminals[terminalNumber - 1].GetComponent<TerminalData>().GiveCell("cell" + cellNumber);
+                        if (terminalData.cellSysConnection[i] != "empty")
+                        {
+                            terminalData.cellPower[i] = powerChange;
+                        }
+                        else
+                        {
+                            MoveUpLine(textBoxCol1, textBoxCol2);
+                            textBoxCol1.text += "cell " + cellNumber + " does not have a system attached";
+                        }
                     }
                     else
                     {
                         MoveUpLine(textBoxCol1, textBoxCol2);
                         textBoxCol1.text += "cell " + cellNumber + " does not exist";
                     }
-                }
-                else
-                {
-                    MoveUpLine(textBoxCol1, textBoxCol2);
-                    textBoxCol1.text += "terminal " + terminalNumber + " does not exist";
                 }
             }
             else
@@ -135,7 +141,6 @@ public class TerminalFunctions
         {
             int systemNumber = int.Parse(inputIndcFunc[1].Substring(inputIndcFunc[1].Length - 1, 1));
             int cellNumber = int.Parse(inputIndcFunc[2].Substring(4, 1));
-
 
             if (inputIndcFunc[2].Substring(0, 1) == "[" && inputIndcFunc[2].Substring(5, 1) == "]" && inputIndcFunc[2].Substring(1, 3) == "cll")
             {
