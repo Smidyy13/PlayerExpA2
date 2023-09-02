@@ -10,7 +10,7 @@ public class TerminalInteraction : MonoBehaviour, IInteractable
 
     GrappleMovement grappleMovement;
 
-    bool interacting;
+    public bool interacting;
 
     void Start()
     {
@@ -20,15 +20,6 @@ public class TerminalInteraction : MonoBehaviour, IInteractable
 
 
         grappleMovement = player.GetComponent<GrappleMovement>();
-    }
-
-    
-    void Update()
-    {
-        if (interacting && Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Backspace)) 
-        { 
-            Exit();
-        }
     }
 
     public void Interact()
