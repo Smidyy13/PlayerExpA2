@@ -26,6 +26,8 @@ public class TerminalFunctions
             int terminalNumber = int.Parse(inputIndcFunc[1].Substring(inputIndcFunc[1].Length - 1, 1));
             int cellNumber = int.Parse(inputIndcFunc[2].Substring(4, 1));
 
+            Debug.Log("The terminal number is: " + terminalData.terminals.Count);
+
             if (inputIndcFunc[2].Substring(0, 1) == "[" && inputIndcFunc[2].Substring(5, 1) == "]" && inputIndcFunc[2].Substring(1, 3) == "cll")
             {
                 if (terminalNumber <= terminalData.terminals.Count)
@@ -67,7 +69,12 @@ public class TerminalFunctions
             int cellNumber = int.Parse(inputIndcFunc[1].Substring(4, 1));
             if (cellNumber <= terminalData.batteryCells.Count)
             {
+                int terminalToRemove = int.Parse(terminalData.batteryCells[cellNumber].Substring(terminalData.batteryCells[cellNumber].Length - 1, 1));
+
+                terminalData.terminals[terminalToRemove - 1].GetComponent<TerminalData>().RemoveCell("cell " + cellNumber);
                 terminalData.batteryCells[cellNumber] = "empty";
+
+                Debug.Log("Terminal to remove: " + terminalToRemove);
             }
             else
             {
@@ -108,17 +115,13 @@ public class TerminalFunctions
                         if (terminalData.cellSysConnection[i] != "empty")
                         {
                             terminalData.cellPower[i] = powerChange;
+                            return;
                         }
                         else
                         {
                             MoveUpLine(textBoxCol1, textBoxCol2);
                             textBoxCol1.text += "cell " + cellNumber + " does not have a system attached";
                         }
-                    }
-                    else
-                    {
-                        MoveUpLine(textBoxCol1, textBoxCol2);
-                        textBoxCol1.text += "cell " + cellNumber + " does not exist";
                     }
                 }
             }

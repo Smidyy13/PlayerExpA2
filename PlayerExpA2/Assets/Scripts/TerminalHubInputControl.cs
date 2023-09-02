@@ -76,7 +76,8 @@ public class TerminalHubInputControl : MonoBehaviour
                 }
                 else if (inputIndcFunc[1] == "powerdir")
                 {
-                    textBoxCol1.text += "\nWhat this will show is yet to be decided";
+                    MoveUpLine();
+                    textBoxCol1.text += "What this will show is yet to be decided";
                 }
                 else
                 {
