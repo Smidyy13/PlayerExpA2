@@ -165,6 +165,8 @@ public class TerminalInputControl : MonoBehaviour
             }
         }
 
+        totalPowerDraw = 0;
+
         for (int i = 0; i < terminalData.cellPower.Count; i++)
         {
             totalPowerDraw += terminalData.cellPower[i];
