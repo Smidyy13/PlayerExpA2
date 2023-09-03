@@ -5,6 +5,8 @@ using TMPro;
 
 public class TerminalInputControl : MonoBehaviour
 {
+    public float totalPowerDraw;
+
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TMP_Text textBoxCol1;
     [SerializeField] TMP_Text textBoxCol2;
@@ -18,7 +20,7 @@ public class TerminalInputControl : MonoBehaviour
 
     TerminalFunctions terminalFunctions = new TerminalFunctions();
 
-    float totalPowerDraw;
+    float tempTotalPowerDraw;
 
     private void Start()
     {
@@ -133,14 +135,15 @@ public class TerminalInputControl : MonoBehaviour
             }
         }
 
-        textBoxCol1.text += "\n.......................................\nunassigned systems:";
+        MoveUpLine();
+        textBoxCol1.text += ".......................................\nunassigned systems:";
+        textBoxCol2.text += "\n";
 
         for (int i = 0; i < terminalData.unconnectedSystems.Count; i++)
         {
-            textBoxCol1.text += "\n" + terminalData.unconnectedSystems[i];
+            MoveUpLine();
+            textBoxCol1.text += terminalData.unconnectedSystems[i];
         }
-
-        textBoxCol2.text += "\n";
     }
 
     public void PowerDirectory()
@@ -165,15 +168,17 @@ public class TerminalInputControl : MonoBehaviour
             }
         }
 
-        totalPowerDraw = 0;
+        tempTotalPowerDraw = 0;
 
         for (int i = 0; i < terminalData.cellPower.Count; i++)
         {
-            totalPowerDraw += terminalData.cellPower[i];
+            tempTotalPowerDraw += terminalData.cellPower[i];
         }
 
-        textBoxCol1.text += "\n.......................................\ntotal terminal power draw: " + totalPowerDraw + " kW-h";
+        totalPowerDraw = tempTotalPowerDraw;
 
+        MoveUpLine();
+        textBoxCol1.text += ".......................................\ntotal terminal power draw: " + totalPowerDraw + " kW-h";
         textBoxCol2.text += "\n";
     }
 

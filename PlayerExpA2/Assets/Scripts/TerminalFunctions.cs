@@ -16,6 +16,27 @@ public class TerminalFunctions
             textBoxCol2.text += "cell " + (i + numPerCol) + "   --   " + terminalData.batteryCells[i + numPerCol];
         }
 
+        MoveUpLine(textBoxCol1, textBoxCol2);
+        textBoxCol1.text += ".......................................\nterminals online:";
+        textBoxCol2.text += "\n";
+
+        for (int i = 0; i < terminalData.terminals.Count; i++)
+        {
+            MoveUpLine(textBoxCol1, textBoxCol2);
+            textBoxCol1.text += terminalData.terminals[i].name;
+        }
+
+        textBoxCol2.text += "\n";
+    }
+
+    public void PowerDirectory(TerminalData terminalData, TMP_Text textBoxCol1, TMP_Text textBoxCol2)
+    {
+        for (int i = 0; i < terminalData.terminals.Count; i++)
+        {
+            MoveUpLine(textBoxCol1, textBoxCol2);
+            textBoxCol1.text += terminalData.terminals[i].name + "   --   " + terminalData.terminals[i].gameObject.GetComponent<TerminalInputControl>().totalPowerDraw + " kW-h";
+        }
+
         textBoxCol2.text += "\n";
     }
 
@@ -149,23 +170,26 @@ public class TerminalFunctions
             {
                 if (systemNumber <= terminalData.numberOfSystems)
                 {
-                    if (cellNumber <= terminalData.batteryCellsGiven.Count)
+                    for (int i = 0; i < terminalData.batteryCellsGiven.Count; i++)
                     {
-                        for (int i = 0; i < terminalData.batteryCellsGiven.Count; i ++)
+                        int cellsGivenNum = int.Parse(terminalData.batteryCellsGiven[i].Substring(terminalData.batteryCellsGiven[i].Length - 1, 1));
+                        if (cellNumber == cellsGivenNum)
                         {
-                            if (int.Parse(terminalData.batteryCellsGiven[i].Substring(terminalData.batteryCellsGiven[i].Length - 1, 1)) == cellNumber)
+                            for (int o = 0; o < terminalData.batteryCellsGiven.Count; o++)
                             {
-                                Debug.Log("got to the end");
-                                terminalData.cellSysConnection[i] = "system " + systemNumber;
-                                terminalData.unconnectedSystems.Remove("system " + systemNumber);
+                                if (int.Parse(terminalData.batteryCellsGiven[o].Substring(terminalData.batteryCellsGiven[o].Length - 1, 1)) == cellNumber)
+                                {
+                                    Debug.Log("got to the end");
+                                    terminalData.cellSysConnection[o] = "system " + systemNumber;
+                                    terminalData.unconnectedSystems.Remove("system " + systemNumber);
+                                    return;
+                                }
                             }
                         }
                     }
-                    else
-                    {
-                        MoveUpLine(textBoxCol1, textBoxCol2);
-                        textBoxCol1.text += "cell " + cellNumber + " does not exist";
-                    }
+                    MoveUpLine(textBoxCol1, textBoxCol2);
+
+                    textBoxCol1.text += "cell " + cellNumber + " is not connected to this terminal";
                 }
                 else
                 {
@@ -184,5 +208,7 @@ public class TerminalFunctions
             MoveUpLine(textBoxCol1, textBoxCol2);
             textBoxCol1.text += inputIndcFunc[1] + " cannot be connected to a battery cell";
         }
+
+
     }
 }
