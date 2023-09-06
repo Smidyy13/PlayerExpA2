@@ -34,7 +34,7 @@ public class TerminalFunctions
         for (int i = 0; i < terminalData.terminals.Count; i++)
         {
             MoveUpLine(textBoxCol1, textBoxCol2);
-            textBoxCol1.text += terminalData.terminals[i].name + "   --   " + terminalData.terminals[i].gameObject.GetComponent<TerminalInputControl>().totalPowerDraw + " kW-h";
+            textBoxCol1.text += terminalData.terminals[i].name + "   --   " + terminalData.terminals[i].gameObject.GetComponent<TerminalInputControl>().totalPowerDraw + " kW-s";
         }
 
         textBoxCol2.text += "\n";
