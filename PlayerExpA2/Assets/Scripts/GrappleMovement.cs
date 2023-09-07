@@ -10,6 +10,8 @@ public class GrappleMovement : MonoBehaviour
     [SerializeField] float pullForce;
     [SerializeField] float pullAcceleration;
     [SerializeField] float grappleRange;
+    public LineRenderer lr;
+    public Transform gunTip;
 
     Rigidbody rb;
 
@@ -36,6 +38,7 @@ public class GrappleMovement : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             grappling = false;
+            lr.enabled = false;
         }
     }
 
@@ -49,7 +52,11 @@ public class GrappleMovement : MonoBehaviour
         }
     }
 
-
+    private void LateUpdate()
+    {
+        if (grappling)
+            lr.SetPosition(0, gunTip.position);
+    }
     void CastRay()
     {
         RaycastHit hit;
@@ -61,5 +68,7 @@ public class GrappleMovement : MonoBehaviour
             grapplePointDirection = hit.point;
             grappling = true;
         }
+        lr.enabled = true;
+        lr.SetPosition(1, hit.point);
     }
 }
