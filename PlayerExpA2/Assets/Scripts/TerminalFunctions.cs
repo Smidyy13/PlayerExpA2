@@ -31,6 +31,19 @@ public class TerminalFunctions
 
     public void PowerDirectory(TerminalData terminalData, TMP_Text textBoxCol1, TMP_Text textBoxCol2)
     {
+        int numPerCol = terminalData.batteryCells.Count / 2;
+
+        for (int i = 0; i < numPerCol; i++)
+        {
+            MoveUpLine(textBoxCol1, textBoxCol2);
+            textBoxCol1.text += "cell " + i + "   --   " + terminalData.cellBatteryAmount[i] + " kW " + "   --   " + terminalData.cellPowerDraw[i] + "kW-c";
+            textBoxCol2.text += "cell " + (i + numPerCol) + "   --   " + terminalData.cellBatteryAmount[i + numPerCol] + " kW " + "   --   " + terminalData.cellPowerDraw[i + numPerCol] + "kW-c";
+        }
+
+        MoveUpLine(textBoxCol1, textBoxCol2);
+        textBoxCol1.text += ".......................................\nterminals online:";
+        textBoxCol2.text += "\n";
+
         for (int i = 0; i < terminalData.terminals.Count; i++)
         {
             MoveUpLine(textBoxCol1, textBoxCol2);

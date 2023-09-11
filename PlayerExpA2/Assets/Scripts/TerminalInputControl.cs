@@ -7,6 +7,8 @@ public class TerminalInputControl : MonoBehaviour
 {
     public float onlinePowerDraw;
 
+    [SerializeField] TerminalData hubTerminal;
+
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TMP_Text textBoxCol1;
     [SerializeField] TMP_Text textBoxCol2;
@@ -16,6 +18,7 @@ public class TerminalInputControl : MonoBehaviour
     List<string> terminalSystems = new List<string>();
 
     TerminalData terminalData;
+
     TerminalInteraction terminalInteraction;
 
     TerminalFunctions terminalFunctions = new TerminalFunctions();
@@ -45,7 +48,7 @@ public class TerminalInputControl : MonoBehaviour
 
         CheckIfOnline();
 
-        Debug.Log("The online power draw: " + onlinePowerDraw);
+        UpdateHubCellDraw();
     }
 
 
@@ -160,8 +163,8 @@ public class TerminalInputControl : MonoBehaviour
             for (int i = 0; i < numPerCol; i++)
             {
                 MoveUpLine();
-                textBoxCol1.text += terminalData.batteryCellsGiven[i] + "   --   " + terminalData.cellPower[i] + " kW-s";
-                textBoxCol2.text += terminalData.batteryCellsGiven[i + numPerCol] + "   --   " + terminalData.cellPower[i + numPerCol] + " kW-s";
+                textBoxCol1.text += terminalData.batteryCellsGiven[i] + "   --   " + terminalData.cellPower[i] + " kW-c";
+                textBoxCol2.text += terminalData.batteryCellsGiven[i + numPerCol] + "   --   " + terminalData.cellPower[i + numPerCol] + " kW-c";
             }
         }
         else
@@ -169,12 +172,12 @@ public class TerminalInputControl : MonoBehaviour
             for (int i = 0; i < terminalData.batteryCellsGiven.Count; i++)
             {
                 MoveUpLine();
-                textBoxCol1.text += terminalData.batteryCellsGiven[i] + "   --   " + terminalData.cellPower[i] + " kW-s";
+                textBoxCol1.text += terminalData.batteryCellsGiven[i] + "   --   " + terminalData.cellPower[i] + " kW-c";
             }
         }
 
         MoveUpLine();
-        textBoxCol1.text += ".......................................\ntotal terminal power draw: " + totalPowerDraw + " kW-s";
+        textBoxCol1.text += ".......................................\ntotal terminal power draw: " + totalPowerDraw + " kW-c";
         textBoxCol2.text += "\n";
     }
 
@@ -197,14 +200,25 @@ public class TerminalInputControl : MonoBehaviour
 
         for (int i = 0; i < terminalData.cellPower.Count; i++)
         {
-            Debug.Log(terminalData.cellPower[i]);
-
             if (terminalData.cellPower[i] == 0)
             {
                 return;
             }
 
             onlinePowerDraw = totalPowerDraw;
+        }
+    }
+
+    void UpdateHubCellDraw()
+    {
+        if (terminalData.cellSysConnection.Count > 0) 
+        {
+            for (int i = 0; i < terminalData.cellPower.Count; i++)
+            {
+                int index = int.Parse(terminalData.batteryCellsGiven[i].Substring(5, 1));
+                Debug.Log(int.Parse(terminalData.batteryCellsGiven[i].Substring(5, 1)));
+                hubTerminal.cellPowerDraw[index] = terminalData.cellPower[i];
+            }
         }
     }
 }

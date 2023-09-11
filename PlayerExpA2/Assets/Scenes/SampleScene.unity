@@ -538,7 +538,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c47ef172430994c9b20a3d9569dd47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mechanismManager: {fileID: 2100409951}
   batteryCells: []
+  cellBatteryAmount: []
+  cellPowerDraw: []
   batteryCellsGiven: []
   cellSysConnection: []
   cellPower: []
@@ -777,6 +780,10 @@ PrefabInstance:
       propertyPath: numberOfSystems
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7698571771326087009, guid: 080909deea7ff094bb11641ec8c333d8, type: 3}
+      propertyPath: hubTerminal
+      value: 
+      objectReference: {fileID: 117967325}
     - target: {fileID: 7698571771326087009, guid: 080909deea7ff094bb11641ec8c333d8, type: 3}
       propertyPath: terminalName
       value: terminal 2 shld
@@ -1613,6 +1620,10 @@ PrefabInstance:
       propertyPath: numberOfSystems
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7698571771326087009, guid: 080909deea7ff094bb11641ec8c333d8, type: 3}
+      propertyPath: hubTerminal
+      value: 
+      objectReference: {fileID: 117967325}
     - target: {fileID: 7698571771326087009, guid: 080909deea7ff094bb11641ec8c333d8, type: 3}
       propertyPath: terminalName
       value: terminal 3 exprmt
@@ -3555,6 +3566,8 @@ MonoBehaviour:
   shipHealth: 0
   experiment: 0
   sheildRegenMultiplier: 2
+  oxygenFilteringMultiplier: 2
+  experimentMultiplier: 1
   shipCycleTime: 2
   oxygenLossPerCycle: 2
   shipPowerText: {fileID: 1481839800}
@@ -3569,6 +3582,7 @@ MonoBehaviour:
   - {fileID: 1852855398}
   - {fileID: 1284590795}
   - {fileID: 489150935}
+  hubTerminal: {fileID: 117967325}
 --- !u!1001 &7698571771763354381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3580,6 +3594,10 @@ PrefabInstance:
       propertyPath: numberOfSystems
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7698571771326087009, guid: 080909deea7ff094bb11641ec8c333d8, type: 3}
+      propertyPath: hubTerminal
+      value: 
+      objectReference: {fileID: 117967325}
     - target: {fileID: 7698571771326087009, guid: 080909deea7ff094bb11641ec8c333d8, type: 3}
       propertyPath: terminalName
       value: terminal 1 oxyfltr

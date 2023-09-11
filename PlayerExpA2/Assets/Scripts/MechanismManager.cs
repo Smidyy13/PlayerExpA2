@@ -39,6 +39,7 @@ public class MechanismManager : MonoBehaviour
     [SerializeField] string experimentTerminalName;
 
     [SerializeField] List<GameObject> terminals = new List<GameObject>();
+    [SerializeField] TerminalData hubTerminal;
 
     float shipTimer;
 
@@ -107,14 +108,17 @@ public class MechanismManager : MonoBehaviour
 
     void PowerDraw()
     {
-        totalPowerDraw = 0;
-
-        foreach (GameObject terminal in terminals)
+        for (int i = 0; i < hubTerminal.cellBatteryAmount.Count; i++)
         {
-            totalPowerDraw += terminal.GetComponent<TerminalInputControl>().onlinePowerDraw;
+            hubTerminal.cellBatteryAmount[i] -= hubTerminal.cellPowerDraw[i];
         }
 
-        shipPower -= totalPowerDraw; 
+        shipPower = 0;
+
+        foreach (float cell in hubTerminal.cellBatteryAmount)
+        {
+            shipPower += cell;
+        }
     }
 
     void AsteroidHit()
