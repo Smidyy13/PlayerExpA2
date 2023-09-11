@@ -34,7 +34,7 @@ public class TerminalFunctions
         for (int i = 0; i < terminalData.terminals.Count; i++)
         {
             MoveUpLine(textBoxCol1, textBoxCol2);
-            textBoxCol1.text += terminalData.terminals[i].name + "   --   " + terminalData.terminals[i].gameObject.GetComponent<TerminalInputControl>().totalPowerDraw + " kW-s";
+            textBoxCol1.text += terminalData.terminals[i].name + "   --   " + terminalData.terminals[i].gameObject.GetComponent<TerminalInputControl>().onlinePowerDraw + " kW-c";
         }
 
         textBoxCol2.text += "\n";
@@ -46,8 +46,6 @@ public class TerminalFunctions
         {
             int terminalNumber = int.Parse(inputIndcFunc[1].Substring(inputIndcFunc[1].Length - 1, 1));
             int cellNumber = int.Parse(inputIndcFunc[2].Substring(4, 1));
-
-            Debug.Log("The terminal number is: " + terminalData.terminals.Count);
 
             if (inputIndcFunc[2].Substring(0, 1) == "[" && inputIndcFunc[2].Substring(5, 1) == "]" && inputIndcFunc[2].Substring(1, 3) == "cll")
             {
@@ -124,9 +122,6 @@ public class TerminalFunctions
         {
             int cellNumber = int.Parse(inputIndcFunc[2].Substring(4, 1));
 
-            Debug.Log("This is the cell number: " + cellNumber);
-            Debug.Log("This is the power change: " + powerChange);
-
             if (inputIndcFunc[2].Substring(0, 1) == "[" && inputIndcFunc[2].Substring(5, 1) == "]" && inputIndcFunc[2].Substring(1, 3) == "cll")
             {
                 for (int i = 0; i < terminalData.batteryCellsGiven.Count; i++)
@@ -179,7 +174,6 @@ public class TerminalFunctions
                             {
                                 if (int.Parse(terminalData.batteryCellsGiven[o].Substring(terminalData.batteryCellsGiven[o].Length - 1, 1)) == cellNumber)
                                 {
-                                    Debug.Log("got to the end");
                                     terminalData.cellSysConnection[o] = "system " + systemNumber;
                                     terminalData.unconnectedSystems.Remove("system " + systemNumber);
                                     return;

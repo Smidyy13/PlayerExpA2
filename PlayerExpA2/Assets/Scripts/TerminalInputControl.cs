@@ -5,7 +5,7 @@ using TMPro;
 
 public class TerminalInputControl : MonoBehaviour
 {
-    public float totalPowerDraw;
+    public float onlinePowerDraw;
 
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TMP_Text textBoxCol1;
@@ -20,6 +20,7 @@ public class TerminalInputControl : MonoBehaviour
 
     TerminalFunctions terminalFunctions = new TerminalFunctions();
 
+    float totalPowerDraw;
     float tempTotalPowerDraw;
 
     private void Start()
@@ -41,6 +42,10 @@ public class TerminalInputControl : MonoBehaviour
         {
             SubmitText();
         }
+
+        CheckIfOnline();
+
+        Debug.Log("The online power draw: " + onlinePowerDraw);
     }
 
 
@@ -168,15 +173,6 @@ public class TerminalInputControl : MonoBehaviour
             }
         }
 
-        tempTotalPowerDraw = 0;
-
-        for (int i = 0; i < terminalData.cellPower.Count; i++)
-        {
-            tempTotalPowerDraw += terminalData.cellPower[i];
-        }
-
-        totalPowerDraw = tempTotalPowerDraw;
-
         MoveUpLine();
         textBoxCol1.text += ".......................................\ntotal terminal power draw: " + totalPowerDraw + " kW-s";
         textBoxCol2.text += "\n";
@@ -186,5 +182,29 @@ public class TerminalInputControl : MonoBehaviour
     {
         textBoxCol1.text += "\n";
         textBoxCol2.text += "\n";
+    }
+
+    void CheckIfOnline()
+    {
+        tempTotalPowerDraw = 0;
+
+        for (int i = 0; i < terminalData.cellPower.Count; i++)
+        {
+            tempTotalPowerDraw += terminalData.cellPower[i];
+        }
+
+        totalPowerDraw = tempTotalPowerDraw;
+
+        for (int i = 0; i < terminalData.cellPower.Count; i++)
+        {
+            Debug.Log(terminalData.cellPower[i]);
+
+            if (terminalData.cellPower[i] == 0)
+            {
+                return;
+            }
+
+            onlinePowerDraw = totalPowerDraw;
+        }
     }
 }
