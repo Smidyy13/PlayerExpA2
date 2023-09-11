@@ -25,7 +25,8 @@ public class MechanismManager : MonoBehaviour
 
     [SerializeField] List<GameObject> terminals = new List<GameObject>();
 
-    float timer;
+    float powerDrawTimer;
+    float asteroidHitTimer;
 
     void Start()
     {
@@ -38,11 +39,12 @@ public class MechanismManager : MonoBehaviour
     void Update()
     {
         shipPowerText.text = "Ship Power: " + shipPower + "out of " + shipPowerTotal;
-        oxygenQualityText.text = "Ship Power: " + oxygenQuality + "out of " + oxygenQualityTotal;
-        sheildsText.text = "Ship Power: " + sheilds + "out of " + sheildsTotal;
-        shipHealthText.text = "Ship Power: " + shipHealth + "out of " + shipHealthTotal;
+        oxygenQualityText.text = "O2 Quality: " + oxygenQuality + "out of " + oxygenQualityTotal;
+        sheildsText.text = "Shields: " + sheilds + "out of " + sheildsTotal;
+        shipHealthText.text = "Health: " + shipHealth + "out of " + shipHealthTotal;
 
         PowerDraw();
+        AsteroidHit();
     }
 
     void PowerDraw()
@@ -54,14 +56,27 @@ public class MechanismManager : MonoBehaviour
             totalPowerDraw += terminal.GetComponent<TerminalInputControl>().totalPowerDraw;
         }
 
-        if (timer >= 1) 
+        if (powerDrawTimer >= 1) 
         {
             shipPower -= totalPowerDraw;
-            timer = 0;
+            powerDrawTimer = 0;
         }
         else
         {
-            timer += Time.deltaTime;
+            powerDrawTimer += Time.deltaTime;
+        }
+    }
+
+    void AsteroidHit()
+    {
+        if (asteroidHitTimer >= 2)
+        {
+            sheilds -= 10;
+            asteroidHitTimer = 0;
+        }
+        else
+        {
+            asteroidHitTimer += Time.deltaTime;
         }
     }
 }
