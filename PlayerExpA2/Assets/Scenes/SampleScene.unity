@@ -3554,7 +3554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30dca3d745958fa49bdf0fff83504107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipPowerTotal: 5000
+  shipPowerTotal: 80
   oxygenQualityTotal: 200
   sheildsTotal: 50
   shipHealthTotal: 50

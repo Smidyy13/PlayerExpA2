@@ -12,8 +12,24 @@ public class TerminalFunctions
         for (int i = 0; i < numPerCol; i++)
         {
             MoveUpLine(textBoxCol1, textBoxCol2);
-            textBoxCol1.text += "cell " + i + "   --   " + terminalData.batteryCells[i];
-            textBoxCol2.text += "cell " + (i + numPerCol) + "   --   " + terminalData.batteryCells[i + numPerCol];
+
+            if (terminalData.cellBatteryAmount[i] > 0)
+            {
+                textBoxCol1.text += "cell " + i + "   --   " + terminalData.batteryCells[i];
+            }
+            else
+            {
+                textBoxCol1.text += "cell " + i + "   --   " + "drained";
+            }
+
+            if (terminalData.cellBatteryAmount[i + numPerCol] > 0)
+            {
+                textBoxCol2.text += "cell " + (i + numPerCol) + "   --   " + terminalData.batteryCells[i + numPerCol];
+            }
+            else
+            {
+                textBoxCol2.text += "cell " + (i + numPerCol) + "   --   " + "drained";
+            }
         }
 
         MoveUpLine(textBoxCol1, textBoxCol2);
@@ -36,8 +52,24 @@ public class TerminalFunctions
         for (int i = 0; i < numPerCol; i++)
         {
             MoveUpLine(textBoxCol1, textBoxCol2);
-            textBoxCol1.text += "cell " + i + "   --   " + terminalData.cellBatteryAmount[i] + " kW " + "   --   " + terminalData.cellPowerDraw[i] + "kW-c";
-            textBoxCol2.text += "cell " + (i + numPerCol) + "   --   " + terminalData.cellBatteryAmount[i + numPerCol] + " kW " + "   --   " + terminalData.cellPowerDraw[i + numPerCol] + "kW-c";
+
+            if (terminalData.cellBatteryAmount[i] > 0)
+            {
+                textBoxCol1.text += "cell " + i + "   --   " + terminalData.cellBatteryAmount[i] + " kW " + "   --   " + terminalData.cellPowerDraw[i] + "kW-c";
+            }
+            else
+            {
+                textBoxCol1.text += "cell " + i + "   --   " + "drained";
+            }
+
+            if (terminalData.cellBatteryAmount[i + numPerCol] > 0)
+            {
+                textBoxCol2.text += "cell " + (i + numPerCol) + "   --   " + terminalData.cellBatteryAmount[i + numPerCol] + " kW " + "   --   " + terminalData.cellPowerDraw[i + numPerCol] + "kW-c";
+            }
+            else
+            {
+                textBoxCol2.text += "cell " + (i + numPerCol) + "   --   " + "drained";
+            }
         }
 
         MoveUpLine(textBoxCol1, textBoxCol2);
@@ -104,7 +136,7 @@ public class TerminalFunctions
                 int terminalToRemove = int.Parse(terminalData.batteryCells[cellNumber].Substring(terminalData.batteryCells[cellNumber].Length - 1, 1));
 
                 terminalData.terminals[terminalToRemove - 1].GetComponent<TerminalData>().RemoveCell("cell " + cellNumber);
-                terminalData.batteryCells[cellNumber] = "empty";
+                terminalData.batteryCells[cellNumber] = "unconnected";
 
                 Debug.Log("Terminal to remove: " + terminalToRemove);
             }
@@ -141,7 +173,7 @@ public class TerminalFunctions
                 {
                     if (int.Parse(terminalData.batteryCellsGiven[i].Substring(terminalData.batteryCellsGiven[i].Length - 1, 1)) == cellNumber)
                     {
-                        if (terminalData.cellSysConnection[i] != "empty")
+                        if (terminalData.cellSysConnection[i] != "unconnected")
                         {
                             terminalData.cellPower[i] = powerChange;
                             return;

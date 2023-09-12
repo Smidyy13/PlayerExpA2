@@ -211,13 +211,18 @@ public class TerminalInputControl : MonoBehaviour
 
     void UpdateHubCellDraw()
     {
-        if (terminalData.cellSysConnection.Count > 0) 
+        if (terminalData.cellSysConnection.Count > 0 && terminalData.batteryCellsGiven.Count > 0) 
         {
             for (int i = 0; i < terminalData.cellPower.Count; i++)
             {
                 int index = int.Parse(terminalData.batteryCellsGiven[i].Substring(5, 1));
-                Debug.Log(int.Parse(terminalData.batteryCellsGiven[i].Substring(5, 1)));
-                hubTerminal.cellPowerDraw[index] = terminalData.cellPower[i];
+
+                Debug.Log(index);
+
+                if (index <= hubTerminal.cellPowerDraw.Count && index > -1)
+                {
+                    hubTerminal.cellPowerDraw[index] = terminalData.cellPower[i];
+                }
             }
         }
     }

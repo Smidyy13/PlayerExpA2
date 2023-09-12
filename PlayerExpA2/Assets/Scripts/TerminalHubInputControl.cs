@@ -35,6 +35,8 @@ public class TerminalHubInputControl : MonoBehaviour
         { 
             SubmitText();
         }
+
+        CheckIfCellEmpty();
     }
 
 
@@ -107,5 +109,25 @@ public class TerminalHubInputControl : MonoBehaviour
     {
         textBoxCol1.text += "\n";
         textBoxCol2.text += "\n";
+    }
+
+    void CheckIfCellEmpty()
+    {
+        for (int i = 0; i < terminalData.cellBatteryAmount.Count; i++)
+        {
+            if (terminalData.cellBatteryAmount[i] <= 0)
+            {
+                if (terminalData.batteryCells[i] != "unconnected")
+                {
+                    int terminalToRemove = int.Parse(terminalData.batteryCells[i].Substring(terminalData.batteryCells[i].Length - 1, 1));
+
+                    terminalData.terminals[terminalToRemove - 1].GetComponent<TerminalData>().RemoveCell("cell " + i);
+                    terminalData.batteryCells[i] = "unconnected";
+
+                    terminalData.cellPowerDraw[i] = 0;
+                    terminalData.cellBatteryAmount[i] = 0;
+                }
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@ public class TerminalData : MonoBehaviour
     {
         for (int i = 0; i < batteryCellCount; i++)
         {
-            batteryCells.Add("empty");
+            batteryCells.Add("unconnected");
             cellBatteryAmount.Add(mechanismManager.shipPowerTotal / batteryCellCount);
             cellPowerDraw.Add(0);
         }
@@ -44,7 +44,7 @@ public class TerminalData : MonoBehaviour
     public void GiveCell(string cellName)
     {
         batteryCellsGiven.Add(cellName);
-        cellSysConnection.Add("empty");
+        cellSysConnection.Add("unconnected");
         cellPower.Add(0);
     }
 
@@ -59,10 +59,10 @@ public class TerminalData : MonoBehaviour
             }
         }
 
-        if (cellSysConnection[cellIndex] != "empty")
+        if (cellSysConnection[cellIndex] != "unconnected")
         {
             unconnectedSystems.Add(cellSysConnection[cellIndex]);
-            cellSysConnection[cellIndex] = "empty";
+            cellSysConnection[cellIndex] = "unconnected";
 
             cellPower[cellIndex] = 0;
         }
